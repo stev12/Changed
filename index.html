@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<p id="box1">Test</p>
+
+<img id='try' src="9Karo9.bmp" alt="some_text">
+</br>
+<button id="btnChanged" onclick="Changed()">Changed</button>
+<button id="btnNotChanged" onclick="nChanged()">Not Changed</button>
+
+
+<h1 id="box2">Test</h1>
+<h3 id="box3">Score</h1>
+<h3 id="box4">Score</h1>
+
+<button id="btnGo"onclick="go()">Go</button>
+<script>
+document.getElementById('btnChanged').disabled = true; 
+document.getElementById('btnNotChanged').disabled = true; 
+var alt;
+var neu;
+var arr= ["9Herz", "6Pik", "9Karo", "6Kreuz"];
+
+
+var score = 0;
+var cur_d;
+var cur_ticks; 
+document.getElementById("box1").innerHTML = arr[Math.floor(Math.random() * 4)];
+
+alt = document.getElementById("box1").innerHTML;
+document.getElementById("try").src = "img/" +  document.getElementById("box1").innerHTML + ".png";
+
+function go(){
+document.getElementById("box1").innerHTML = arr[Math.floor(Math.random() * 4)];
+document.getElementById("try").src = "img/" +  document.getElementById("box1").innerHTML + ".png";
+neu = document.getElementById("box1").innerHTML;
+cur_d = new Date();
+cur_ticks = cur_d.getTime();
+document.getElementById('btnChanged').disabled = false; 
+document.getElementById('btnNotChanged').disabled = false; 
+document.getElementById('btnGo').disabled = true; 
+}
+
+function Changed(){
+
+var d = new Date();
+
+var ticks = d.getTime();
+
+var diff = ticks - cur_ticks;
+document.getElementById("box4").innerHTML= diff;
+if (alt==neu) {
+document.getElementById("box2").innerHTML= "falsch";
+score = score - 500 * diff/2000;
+}else{
+document.getElementById("box2").innerHTML= "richtig";
+score = score + 100 * 2000/diff;
+}
+document.getElementById("box1").innerHTML = arr[Math.floor(Math.random() * 4)];
+document.getElementById("try").src = "img/" +  document.getElementById("box1").innerHTML + ".png";
+
+document.getElementById("box3").innerHTML= score;
+alt = neu;
+neu = document.getElementById("box1").innerHTML;
+cur_ticks = ticks;
+}
+
+function nChanged(){
+
+var d = new Date();
+
+var ticks = d.getTime();
+
+var diff = ticks - cur_ticks;
+document.getElementById("box4").innerHTML= diff;
+if (alt==neu) {
+document.getElementById("box2").innerHTML= "richtig";
+
+score = score + (100 * 2000/diff);
+}else{
+document.getElementById("box2").innerHTML= "falsch";
+
+score = score - (500 * diff/2000);
+}
+
+document.getElementById("box1").innerHTML = arr[Math.floor(Math.random() * 4)];
+document.getElementById("try").src = "img/" +  document.getElementById("box1").innerHTML + ".png";
+
+document.getElementById("box3").innerHTML= score;
+alt = neu;
+neu = document.getElementById("box1").innerHTML;
+cur_ticks = ticks;
+}
+</script>
+</body>
+</html>
+
